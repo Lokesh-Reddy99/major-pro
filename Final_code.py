@@ -18,7 +18,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-dataset=pd.read_csv("loan_train.csv")
+dataset=pd.read_csv("resources/loan_train.csv")
 print(dataset.head(5))
 dataset.columns
 
