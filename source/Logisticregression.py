@@ -34,24 +34,29 @@ class LogisticRegressionClass:
         plt.figure(figsize=(6, 5))
         sns.heatmap(pd.DataFrame(confusion_matrix), annot=True, cbar_kws={'orientation': 'horizontal'}, cmap='YlGnBu',
                     fmt='d')
-        plt.show()
+        # plt.show()
         ax.xaxis.set_label_position("bottom")
-        plt.tight_layout()
-        plt.title("Exampleset")
-        plt.ylabel("Actual label")
-        plt.xlabel("predicted label")
+        # plt.tight_layout()
+        # plt.title("Exampleset")
+        # plt.ylabel("Actual label")
+        # plt.xlabel("predicted label")
 
         # CONFUSION MATRIX EVALUATION METRICS
-        print("Accuracy_LR:", metrics.accuracy_score(ytest, y_pred))
-        print("Precision_LR:", metrics.precision_score(ytest, y_pred))
+        a_lr, p_lr = metrics.accuracy_score(ytest, y_pred), metrics.precision_score(ytest, y_pred)
+        print("Accuracy_LR:", a_lr)
+        print("Precision_LR:", p_lr)
+
 
         # ROC CURVE
         y_pred_proba = logreg.predict_proba(xtest)[::, 1]
         fpr, tpr, _ = metrics.roc_curve(ytest, y_pred_proba)
-        auc = metrics.roc_auc_score(ytest, y_pred_proba)
-        plt.plot(fpr, tpr, label="data 1, auc=" + str(auc))
-        plt.legend(loc=4)
-        plt.show()
+        # auc = metrics.roc_auc_score(ytest, y_pred_proba)
+        # plt.plot(fpr, tpr, label="data 1, auc=" + str(auc))
+        # plt.legend(loc=4)
+        # plt.show()
+
+        return "Accuracy_LR:  " + str(a_lr) + "    Precision_LR:  " + str(p_lr)
+
 
 
 if __name__ == "__main__":

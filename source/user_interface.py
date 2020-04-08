@@ -1,6 +1,10 @@
+import sys
+sys.path.append("..")
 from tkinter import *
 from tkinter import filedialog
 from source import Decisiontree, Logisticregression, RandomForest
+import tkinter.scrolledtext as scrolledtext
+
 
 
 class Application:
@@ -11,12 +15,13 @@ class Application:
             self.dataset_path), Decisiontree.DecisionTree(self.dataset_path), RandomForest.RandomForest(
             self.dataset_path)
         self.app = Tk()
-        self.app.geometry("500x200")
-        self.row_counter = 0
+        self.app.geometry("700x140")
+        self.row_counter = 1
         self.filechosen = False
+        self.current_result = None
 
     def add_task(self, button_name, task_function, ):
-        button = Button(self.app, text = button_name, command = task_function).grid(row = self.row_counter, column = 1)
+        button = Button(self.app, text = button_name, command = task_function).grid(row = self.row_counter, column = 0)
         self.row_counter += 1
         return button
 
@@ -33,13 +38,44 @@ class Application:
         Button(self.app, text = "Choose Dataset", command = choose_file).grid(row = row_num, column = 0)
         self.row_counter += 1
 
+    def generateLogisticRegression(self):
+        result = "None"
+        try:
+            result = self.logistic_regression.generate()
+        finally:
+            if self.current_result is not None:
+                self.current_result.destroy()
+            self.current_result = Label(self.app, text="RESULT = " + result).grid(row=2, column=1)
+
+    def generateDecisionTree(self):
+        result = "None"
+        try:
+            result = self.desicion_tree.generate()
+        finally:
+            if self.current_result is not None:
+                self.current_result.destroy()
+            self.current_result = Label(self.app, text="RESULT = " + result).grid(row=3, column=1)
+
+    def generateRandomForest(self):
+        result = "None"
+        try:
+            result = self.random_forest.generate()
+        finally:
+            if self.current_result is not None:
+                self.current_result.destroy()
+            self.current_result = Label(self.app, text="RESULT = " + result).grid(row=4, column=1)
+
     def taskloop(self):
         if self.filechosen:
-            self.add_task("Generate Logistic Regression", self.logistic_regression.generate)
-            self.add_task("Generate Decision Tree", self.desicion_tree.generate)
-            self.add_task("Generate Random Forest", self.random_forest.generate)
+            self.add_task("Generate Logistic Regression", self.generateLogisticRegression)
+            self.add_task("Generate Decision Tree", self.generateDecisionTree)
+            self.add_task("Generate Random Forest", self.generateRandomForest)
+            # TKScrollTXT = scrolledtext.ScrolledText(self.app, width=100, height=10, wrap='word')
+            # TKScrollTXT.insert(1.0, '#console text will be printed here')
+            # TKScrollTXT.grid(row=6, column=1)
         else:
             self.app.after(1000, self.taskloop)
+
     def main(self):
         self.add_choose_file_button()
         self.app.after(1000,self.taskloop)
