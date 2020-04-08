@@ -83,7 +83,7 @@ plt.ylabel("Actual label")
 plt.xlabel("predicted label")
 
 A_RF=metrics.accuracy_score(ytest,rfc_pred)
-print("Accuracy_RFC:",A_RF)
+print("Accuracy_RFC:",A_RF*100)
 
 P_RF=metrics.precision_score(ytest,rfc_pred)
 print("Precision for RF:",P_RF)

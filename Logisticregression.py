@@ -72,7 +72,7 @@ plt.xlabel("predicted label")
 
 #CONFUSION MATRIX EVALUATION METRICS
 A_LR=metrics.accuracy_score(ytest,y_pred)
-print("Accuracy_LR:",A_LR)
+print("Accuracy_LR:",A_LR*100)
 
 P_LR=metrics.precision_score(ytest,y_pred)
 print("Precision_LR:",P_LR)

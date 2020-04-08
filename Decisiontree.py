@@ -61,7 +61,7 @@ plt.xticks(tick_set,class_names)
 plt.yticks(tick_set,class_names)
 
 A_DT=metrics.accuracy_score(ytest,tree_pred)
-print("Accuracy_decision_tree",A_DT)
+print("Accuracy_decision_tree",A_DT*100)
 
 P_DT=metrics.precision_score(ytest,tree_pred)
 print("Precision for DT:",P_DT)
